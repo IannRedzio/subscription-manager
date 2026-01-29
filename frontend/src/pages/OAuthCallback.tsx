@@ -36,10 +36,10 @@ const OAuthCallback = () => {
   }, [searchParams, navigate, setUser]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
       <div className="text-center">
         <Loader2 className="w-12 h-12 animate-spin text-blue-500 mx-auto mb-4" />
-        <p className="text-gray-600">Processing login...</p>
+        <p className="text-gray-600 dark:text-gray-400">Processing login...</p>
       </div>
     </div>
   );

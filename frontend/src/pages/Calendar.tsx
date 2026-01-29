@@ -50,7 +50,7 @@ const Calendar = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <Navbar />
         <div className="flex items-center justify-center py-20">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
@@ -60,20 +60,20 @@ const Calendar = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
       <Navbar />
-      
+
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Calendar</h1>
-            <p className="text-gray-600 mt-1">View upcoming billing dates</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Calendar</h1>
+            <p className="text-gray-600 dark:text-gray-400 mt-1">View upcoming billing dates</p>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="secondary" onClick={previousMonth}>
               Previous
             </Button>
-            <span className="px-4 py-2 font-semibold text-gray-900">
+            <span className="px-4 py-2 font-semibold text-gray-900 dark:text-white">
               {format(currentDate, 'MMMM yyyy')}
             </span>
             <Button variant="secondary" onClick={nextMonth}>
@@ -82,16 +82,16 @@ const Calendar = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <div className="grid grid-cols-7 gap-px bg-gray-200">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+          <div className="grid grid-cols-7 gap-px bg-gray-200 dark:bg-gray-700">
             {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-              <div key={day} className="bg-gray-50 p-3 text-center font-medium text-gray-700">
+              <div key={day} className="bg-gray-50 dark:bg-gray-800 p-3 text-center font-medium text-gray-700 dark:text-gray-300">
                 {day}
               </div>
             ))}
           </div>
 
-          <div className="grid grid-cols-7 gap-px bg-gray-200">
+          <div className="grid grid-cols-7 gap-px bg-gray-200 dark:bg-gray-700">
             {days.map((day) => {
               const daySubscriptions = getSubscriptionsForDay(day);
               const isCurrentMonth = isSameMonth(day, currentDate);
@@ -101,12 +101,16 @@ const Calendar = () => {
                 <div
                   key={day.toString()}
                   className={`min-h-32 p-2 ${
-                    isCurrentMonth ? 'bg-white' : 'bg-gray-50'
-                  } ${isDayToday ? 'bg-blue-50' : ''}`}
+                    isCurrentMonth ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-900'
+                  } ${isDayToday ? 'bg-blue-50 dark:bg-blue-900/20' : ''}`}
                 >
                   <div
                     className={`text-sm font-medium ${
-                      isDayToday ? 'text-blue-600' : isCurrentMonth ? 'text-gray-900' : 'text-gray-400'
+                      isDayToday
+                        ? 'text-blue-600 dark:text-blue-400'
+                        : isCurrentMonth
+                        ? 'text-gray-900 dark:text-white'
+                        : 'text-gray-400 dark:text-gray-600'
                     }`}
                   >
                     {format(day, 'd')}
@@ -115,7 +119,7 @@ const Calendar = () => {
                     {daySubscriptions.map((sub) => (
                       <div
                         key={sub.id}
-                        className="text-xs p-1 rounded bg-blue-100 text-blue-800 truncate cursor-pointer hover:bg-blue-200"
+                        className="text-xs p-1 rounded bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-400 truncate cursor-pointer hover:bg-blue-200 dark:hover:bg-blue-900"
                         title={`${sub.name} - $${sub.amount.toFixed(2)}`}
                       >
                         {sub.name}

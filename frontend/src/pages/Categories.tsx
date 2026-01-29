@@ -62,7 +62,7 @@ const Categories = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <Navbar />
         <div className="flex items-center justify-center py-20">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
@@ -72,14 +72,14 @@ const Categories = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
       <Navbar />
 
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Categories</h1>
-            <p className="text-gray-600 mt-1">Browse available subscription categories</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Categories</h1>
+            <p className="text-gray-600 dark:text-gray-400 mt-1">Browse available subscription categories</p>
           </div>
           {isAdmin && (
             <Button onClick={() => setIsModalOpen(true)}>
@@ -93,22 +93,22 @@ const Categories = () => {
           {categories.map((category) => (
             <div
               key={category.id}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
               style={{ borderTop: `4px solid ${category.color || '#3b82f6'}` }}
             >
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900">{category.name}</h3>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{category.name}</h3>
                 {category.color && (
                   <div className="mt-3 flex items-center gap-2">
                     <div
                       className="w-6 h-6 rounded-full"
                       style={{ backgroundColor: category.color }}
                     />
-                    <span className="text-sm text-gray-600">{category.color}</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">{category.color}</span>
                   </div>
                 )}
                 {category.icon && (
-                  <p className="mt-3 text-sm text-gray-600">
+                  <p className="mt-3 text-sm text-gray-600 dark:text-gray-400">
                     <span className="font-medium">Icon:</span> {category.icon}
                   </p>
                 )}
@@ -142,7 +142,7 @@ const Categories = () => {
           />
 
           <div>
-            <label htmlFor="color" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="color" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Color
             </label>
             <div className="flex items-center gap-3">
@@ -151,9 +151,9 @@ const Categories = () => {
                 id="color"
                 value={newCategory.color}
                 onChange={(e) => setNewCategory({ ...newCategory, color: e.target.value })}
-                className="w-12 h-10 rounded border border-gray-300 cursor-pointer"
+                className="w-12 h-10 rounded border border-gray-300 dark:border-gray-600 cursor-pointer"
               />
-              <span className="text-sm text-gray-600">{newCategory.color}</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400">{newCategory.color}</span>
             </div>
           </div>
 

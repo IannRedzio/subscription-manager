@@ -35,7 +35,7 @@ const Stats = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <Navbar />
         <div className="flex items-center justify-center py-20">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
@@ -46,10 +46,10 @@ const Stats = () => {
 
   if (!stats) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <Navbar />
         <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded">
             Failed to load statistics
           </div>
         </div>
@@ -58,13 +58,13 @@ const Stats = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
       <Navbar />
-      
+
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Statistics</h1>
-          <p className="text-gray-600 mt-1">Detailed breakdown of your subscription spending</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Statistics</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Detailed breakdown of your subscription spending</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -95,16 +95,16 @@ const Stats = () => {
           <CategoryChart stats={stats} />
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Spending by Category</h2>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Spending by Category</h2>
           <div className="space-y-3">
             {stats.byCategory.map((cat) => (
-              <div key={cat.category} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div key={cat.category} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
                 <div>
-                  <p className="font-medium text-gray-900">{cat.category}</p>
-                  <p className="text-sm text-gray-600">{cat.count} subscription(s)</p>
+                  <p className="font-medium text-gray-900 dark:text-white">{cat.category}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{cat.count} subscription(s)</p>
                 </div>
-                <p className="text-lg font-semibold text-gray-900">${cat.total.toFixed(2)}</p>
+                <p className="text-lg font-semibold text-gray-900 dark:text-white">${cat.total.toFixed(2)}</p>
               </div>
             ))}
           </div>

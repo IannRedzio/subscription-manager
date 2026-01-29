@@ -59,12 +59,12 @@ const Dashboard = () => {
     }
   }, [fetchData]);
 
-  const activeSubscriptions = useMemo(() => 
-    subscriptions.filter((s) => s.status === 'ACTIVE'), 
+  const activeSubscriptions = useMemo(() =>
+    subscriptions.filter((s) => s.status === 'ACTIVE'),
     [subscriptions]
   );
 
-  const totalMonthly = useMemo(() => 
+  const totalMonthly = useMemo(() =>
     activeSubscriptions
       .filter((s) => s.billingCycle === 'MONTHLY')
       .reduce((sum, s) => sum + s.amount, 0),
@@ -82,7 +82,7 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <Navbar />
         <div className="flex items-center justify-center py-20">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
@@ -92,13 +92,13 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
       <Navbar />
-      
+
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-600 mt-1">Overview of your subscriptions</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Overview of your subscriptions</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -130,30 +130,30 @@ const Dashboard = () => {
         </div>
 
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Upcoming Billing (7 Days)</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Upcoming Billing (7 Days)</h2>
           {next7Days.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {next7Days.map((sub) => (
-                <div key={sub.id} className="bg-white rounded-lg shadow p-4 border-l-4 border-blue-500">
-                  <h3 className="font-semibold text-gray-900">{sub.name}</h3>
-                  <p className="text-sm text-gray-600 mt-1">
+                <div key={sub.id} className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 border-l-4 border-blue-500">
+                  <h3 className="font-semibold text-gray-900 dark:text-white">{sub.name}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                     {format(new Date(sub.nextBillingDate), 'MMM dd, yyyy')}
                   </p>
-                  <p className="text-sm font-medium text-gray-900 mt-2">
+                  <p className="text-sm font-medium text-gray-900 dark:text-white mt-2">
                     ${sub.amount.toFixed(2)}
                   </p>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="bg-white rounded-lg shadow p-8 text-center text-gray-500">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-8 text-center text-gray-500 dark:text-gray-400">
               No upcoming billing in the next 7 days
             </div>
           )}
         </div>
 
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">All Subscriptions</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">All Subscriptions</h2>
           <SubscriptionList
             subscriptions={subscriptions}
             loading={false}

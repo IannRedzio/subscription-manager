@@ -51,7 +51,7 @@ const EditSubscription = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <Navbar />
         <div className="flex items-center justify-center py-20">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
@@ -62,10 +62,10 @@ const EditSubscription = () => {
 
   if (error || !subscription) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <Navbar />
         <div className="max-w-3xl mx-auto px-4 py-8">
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded">
             {error || 'Subscription not found'}
           </div>
         </div>
@@ -74,16 +74,16 @@ const EditSubscription = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
       <Navbar />
-      
+
       <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">Edit Subscription</h1>
-          <p className="text-gray-600 mt-1">Update subscription details</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Edit Subscription</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Update subscription details</p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
           <SubscriptionForm subscription={subscription} onSubmit={handleSubmit} onCancel={handleCancel} />
         </div>
       </main>
