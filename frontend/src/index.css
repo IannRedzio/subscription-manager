@@ -1,25 +1,45 @@
 @import "tailwindcss";
 
-/* Base styles for dark mode transitions */
-html {
-  transition: background-color 0.2s ease, color 0.2s ease;
+/* Configurar dark mode basado en clase para Tailwind v4 */
+@variant dark (&:where(.dark, .dark *));
+
+/* Scrollbar consistente para ambos modos */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
 }
 
 /* Dark mode scrollbar */
-.dark ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
 .dark ::-webkit-scrollbar-track {
   background: #1f2937;
 }
 
 .dark ::-webkit-scrollbar-thumb {
   background: #4b5563;
-  border-radius: 4px;
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
   background: #6b7280;
+}
+
+/* Transiciones suaves */
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  transition: background-color 0.2s ease, color 0.2s ease;
 }

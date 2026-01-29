@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useLayoutEffect, type ReactNode } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -10,20 +10,31 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('theme') as Theme;
-      if (saved) return saved;
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    return 'light';
-  });
+const getInitialTheme = (): Theme => {
+  if (typeof window === 'undefined') return 'light';
 
-  useEffect(() => {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light' || saved === 'dark') {
+    return saved;
+  }
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
+
+export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [theme, setThemeState] = useState<Theme>(getInitialTheme);
+
+  // Usar useLayoutEffect para aplicar el tema antes del primer render
+  useLayoutEffect(() => {
     const root = window.document.documentElement;
+
+    // Remover ambas clases primero
     root.classList.remove('light', 'dark');
+
+    // Agregar la clase correcta
     root.classList.add(theme);
+
+    // Guardar en localStorage
     localStorage.setItem('theme', theme);
   }, [theme]);
 
