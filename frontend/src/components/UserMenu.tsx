@@ -1,4 +1,5 @@
 import { memo, useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { User, LogOut, Settings, ChevronDown } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { cn } from '../utils/cn';
@@ -7,6 +8,7 @@ const UserMenu = memo(() => {
   const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -55,7 +57,10 @@ const UserMenu = memo(() => {
           </div>
 
           <button
-            onClick={() => setIsOpen(false)}
+            onClick={() => {
+              navigate('/settings');
+              setIsOpen(false);
+            }}
             className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
           >
             <Settings className="w-4 h-4" />

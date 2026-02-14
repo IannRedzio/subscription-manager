@@ -48,10 +48,10 @@ const Settings = () => {
               </div>
               <button
                 onClick={toggleTheme}
-                className="relative inline-flex h-10 w-20 items-center rounded-full bg-gray-200 dark:bg-gray-700 transition-colors"
+                className="relative inline-flex h-10 w-20 items-center rounded-full bg-gray-200 dark:bg-gray-700 transition-colors cursor-pointer"
               >
                 <span
-                  className={`inline-flex h-8 w-8 transform items-center justify-center rounded-full bg-white dark:bg-gray-800 shadow transition-transform ${
+                  className={`inline-flex h-8 w-8 transform items-center justify-center rounded-full bg-white dark:bg-gray-800 shadow transition-transform cursor-pointer ${
                     theme === 'dark' ? 'translate-x-10' : 'translate-x-1'
                   }`}
                 >

@@ -1,6 +1,14 @@
 import { memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Plus, Home, BarChart3, Calendar as CalendarIcon, Tag, Settings as SettingsIcon, Moon, Sun } from 'lucide-react';
+import {
+  Plus,
+  Home,
+  BarChart3,
+  Calendar as CalendarIcon,
+  Tag,
+  Moon,
+  Sun,
+} from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 import UserMenu from './UserMenu';
 
@@ -13,7 +21,6 @@ const Navbar = memo(() => {
     { path: '/stats', icon: BarChart3, label: 'Statistics' },
     { path: '/calendar', icon: CalendarIcon, label: 'Calendar' },
     { path: '/categories', icon: Tag, label: 'Categories' },
-    { path: '/settings', icon: SettingsIcon, label: 'Settings' },
   ];
 
   return (
@@ -25,7 +32,9 @@ const Navbar = memo(() => {
               <div className="w-10 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">SM</span>
               </div>
-              <span className="font-bold text-xl text-gray-900 dark:text-white whitespace-nowrap">Subscription Manager</span>
+              <span className="font-bold text-xl text-gray-900 dark:text-white whitespace-nowrap">
+                Subscription Manager
+              </span>
             </Link>
 
             <div className="hidden lg:flex items-center gap-2">
@@ -61,7 +70,7 @@ const Navbar = memo(() => {
             <UserMenu />
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors"
+              className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors hover:cursor-pointer"
               aria-label="Toggle theme"
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
