@@ -1,29 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
-export interface AuthRequest extends Request {
-  user?: {
-    id: string;
-    email: string;
-    name?: string;
-    avatar?: string;
-    role: 'ADMIN' | 'USER';
-  };
-}
+import { prisma } from '../config/database.js';
 
 export const authMiddleware = async (
-  req: AuthRequest,
+  req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     const token = req.headers.authorization?.replace('Bearer ', '');
 
     if (!token) {
-      return res.status(401).json({ error: 'No token provided' });
+      res.status(401).json({ error: 'No token provided' });
+      return;
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET || '') as any;
@@ -33,7 +22,8 @@ export const authMiddleware = async (
     });
 
     if (!user) {
-      return res.status(401).json({ error: 'User not found' });
+      res.status(401).json({ error: 'User not found' });
+      return;
     }
 
     req.user = {
@@ -46,6 +36,15 @@ export const authMiddleware = async (
 
     next();
   } catch (error) {
-    return res.status(401).json({ error: 'Invalid token' });
+    res.status(401).json({ error: 'Invalid token' });
   }
+};
+
+export const adminMiddleware = (req: Request, res: Response, next: NextFunction): void => {
+  if (req.user?.role !== 'ADMIN') {
+    res.status(403).json({ error: 'Admin access required' });
+    return;
+  }
+
+  next();
 };

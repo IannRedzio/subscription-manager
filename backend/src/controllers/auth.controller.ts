@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import passport from '../config/passport.js';
-import { AuthRequest } from '../middleware/auth.middleware.js';
+import passport from 'passport';
+import * as authService from '../services/auth.service.js';
 
 export const googleAuth = passport.authenticate('google', {
   scope: ['profile', 'email'],
@@ -9,13 +9,11 @@ export const googleAuth = passport.authenticate('google', {
 
 export const googleCallback = (req: Request, res: Response) => {
   const user = req.user as any;
-  const token = jwt.sign(
-    { id: user.id, email: user.email },
-    process.env.JWT_SECRET || '',
-    { expiresIn: '7d' }
-  );
+  const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET || '', {
+    expiresIn: '7d',
+  });
 
-  res.redirect(`http://localhost:5173/auth/callback?token=${token}`);
+  res.redirect(`${process.env.FRONTEND_URL}/auth/callback?token=${token}`);
 };
 
 export const githubAuth = passport.authenticate('github', {
@@ -24,27 +22,22 @@ export const githubAuth = passport.authenticate('github', {
 
 export const githubCallback = (req: Request, res: Response) => {
   const user = req.user as any;
-  const token = jwt.sign(
-    { id: user.id, email: user.email },
-    process.env.JWT_SECRET || '',
-    { expiresIn: '7d' }
-  );
+  const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET || '', {
+    expiresIn: '7d',
+  });
 
-  res.redirect(`http://localhost:5173/auth/callback?token=${token}`);
+  res.redirect(`${process.env.FRONTEND_URL}/auth/callback?token=${token}`);
 };
 
-export const logout = (req: AuthRequest, res: Response) => {
+export const logout = (_req: Request, res: Response) => {
   res.json({ message: 'Logged out successfully' });
 };
 
-export const getMe = async (req: AuthRequest, res: Response) => {
+export const getMe = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    if (!req.user) {
-      return res.status(401).json({ error: 'Not authenticated' });
-    }
-
-    res.json(req.user);
+    const user = await authService.getMe(req.user as any);
+    res.json(user);
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    next(error);
   }
 };
