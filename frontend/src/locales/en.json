@@ -9,7 +9,9 @@
     "calendar": "Calendar",
     "categories": "Categories",
     "newSubscription": "New Subscription",
-    "toggleTheme": "Toggle theme"
+    "toggleTheme": "Toggle theme",
+    "menu": "Menu",
+    "closeMenu": "Close menu"
   },
   "footer": {
     "rights": "© {{year}} Subscription Manager. All rights reserved.",

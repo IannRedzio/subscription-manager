@@ -9,7 +9,9 @@
     "calendar": "Calendario",
     "categories": "Categorias",
     "newSubscription": "Nueva suscripcion",
-    "toggleTheme": "Cambiar tema"
+    "toggleTheme": "Cambiar tema",
+    "menu": "Menú",
+    "closeMenu": "Cerrar menú"
   },
   "footer": {
     "rights": "© {{year}} Subscription Manager. Todos los derechos reservados.",

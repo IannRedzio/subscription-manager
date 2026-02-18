@@ -45,13 +45,20 @@ const UserMenu = memo(() => {
         <span className="text-sm font-medium text-gray-700 dark:text-gray-300 hidden sm:block">
           {user.name || user.email}
         </span>
-        <ChevronDown className={cn('w-4 h-4 text-gray-500 dark:text-gray-400 transition-transform', isOpen && 'rotate-180')} />
+        <ChevronDown
+          className={cn(
+            'w-4 h-4 text-gray-500 dark:text-gray-400 transition-transform',
+            isOpen && 'rotate-180'
+          )}
+        />
       </button>
 
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-50">
           <div className="px-4 py-2 border-b border-gray-100 dark:border-gray-700">
-            <p className="text-sm font-medium text-gray-900 dark:text-white">{user.name || t('userMenu.user')}</p>
+            <p className="text-sm font-medium text-gray-900 dark:text-white">
+              {user.name || t('userMenu.user')}
+            </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">{user.email}</p>
             <span className="inline-block mt-1 px-2 py-0.5 text-xs font-medium rounded bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-400">
               {t(`roles.${user.role}`)}
