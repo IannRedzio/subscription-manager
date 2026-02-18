@@ -4,6 +4,7 @@
   },
   "nav": {
     "dashboard": "Panel",
+    "subscriptions": "Suscripciones",
     "statistics": "Estadisticas",
     "calendar": "Calendario",
     "categories": "Categorias",
@@ -28,6 +29,8 @@
   "dashboard": {
     "title": "Panel",
     "subtitle": "Resumen de tus suscripciones",
+    "greeting": "Bienvenido de nuevo",
+    "viewAll": "Ver todas las suscripciones",
     "stats": {
       "monthlySpending": "Gasto mensual",
       "activeSubscriptions": "Suscripciones activas",
@@ -37,6 +40,10 @@
     "upcomingTitle": "Proximos cobros (7 dias)",
     "noUpcoming": "No hay proximos cobros en los proximos 7 dias",
     "allSubscriptions": "Todas las suscripciones"
+  },
+  "subscriptionsPage": {
+    "title": "Mis Suscripciones",
+    "subtitle": "Gestiona y rastrea todas tus suscripciones"
   },
   "stats": {
     "title": "Estadisticas",

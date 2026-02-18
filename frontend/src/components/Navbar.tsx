@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   Plus,
   Home,
+  CreditCard,
   BarChart3,
   Calendar as CalendarIcon,
   Tag,
@@ -20,6 +21,7 @@ const Navbar = memo(() => {
 
   const navItems = [
     { path: '/', icon: Home, label: t('nav.dashboard') },
+    { path: '/subscriptions', icon: CreditCard, label: t('nav.subscriptions') },
     { path: '/stats', icon: BarChart3, label: t('nav.statistics') },
     { path: '/calendar', icon: CalendarIcon, label: t('nav.calendar') },
     { path: '/categories', icon: Tag, label: t('nav.categories') },

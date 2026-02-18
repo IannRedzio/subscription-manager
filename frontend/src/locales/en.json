@@ -4,6 +4,7 @@
   },
   "nav": {
     "dashboard": "Dashboard",
+    "subscriptions": "Subscriptions",
     "statistics": "Statistics",
     "calendar": "Calendar",
     "categories": "Categories",
@@ -28,6 +29,8 @@
   "dashboard": {
     "title": "Dashboard",
     "subtitle": "Overview of your subscriptions",
+    "greeting": "Welcome back",
+    "viewAll": "View All Subscriptions",
     "stats": {
       "monthlySpending": "Monthly Spending",
       "activeSubscriptions": "Active Subscriptions",
@@ -37,6 +40,10 @@
     "upcomingTitle": "Upcoming Billing (7 Days)",
     "noUpcoming": "No upcoming billing in the next 7 days",
     "allSubscriptions": "All Subscriptions"
+  },
+  "subscriptionsPage": {
+    "title": "My Subscriptions",
+    "subtitle": "Manage and track all your subscriptions"
   },
   "stats": {
     "title": "Statistics",

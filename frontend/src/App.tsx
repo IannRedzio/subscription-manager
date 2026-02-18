@@ -6,6 +6,7 @@ import { Loader2 } from 'lucide-react';
 
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Login = lazy(() => import('./pages/Login'));
+const Subscriptions = lazy(() => import('./pages/Subscriptions'));
 const NewSubscription = lazy(() => import('./pages/NewSubscription'));
 const EditSubscription = lazy(() => import('./pages/EditSubscription'));
 const SubscriptionDetail = lazy(() => import('./pages/SubscriptionDetail'));
@@ -53,6 +54,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/subscriptions"
+                element={
+                  <ProtectedRoute>
+                    <Subscriptions />
                   </ProtectedRoute>
                 }
               />
