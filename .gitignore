@@ -47,3 +47,6 @@ docs/
 backend/SETUP.md
 backend/Correcciones.md
 backend/ARCHITECTURE.md
+
+frontend/.agent
+frontend/.agents
