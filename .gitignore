@@ -1,6 +1,8 @@
 # Dependencies
 node_modules/
 
+CLAUDE.md
+
 # Environment variables (keep .env.example!)
 **/.env
 **/.env.local
@@ -44,3 +46,4 @@ PHASES.md
 docs/
 backend/SETUP.md
 backend/Correcciones.md
+backend/ARCHITECTURE.md

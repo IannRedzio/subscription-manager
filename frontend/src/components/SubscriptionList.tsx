@@ -2,6 +2,7 @@ import { memo } from 'react';
 import { Loader2 } from 'lucide-react';
 import type { Subscription } from '../types';
 import SubscriptionCard from './SubscriptionCard';
+import { useTranslation } from 'react-i18next';
 
 interface SubscriptionListProps {
   subscriptions: Subscription[];
@@ -12,6 +13,8 @@ interface SubscriptionListProps {
 }
 
 const SubscriptionList = memo(({ subscriptions, loading, onEdit, onDelete, onView }: SubscriptionListProps) => {
+  const { t } = useTranslation();
+
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
@@ -23,8 +26,8 @@ const SubscriptionList = memo(({ subscriptions, loading, onEdit, onDelete, onVie
   if (subscriptions.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500 dark:text-gray-400 text-lg">No subscriptions yet</p>
-        <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">Create your first subscription to get started</p>
+        <p className="text-gray-500 dark:text-gray-400 text-lg">{t('subscriptions.emptyTitle')}</p>
+        <p className="text-gray-400 dark:text-gray-500 text-sm mt-2">{t('subscriptions.emptySubtitle')}</p>
       </div>
     );
   }

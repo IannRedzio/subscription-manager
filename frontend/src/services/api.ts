@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { User, Subscription, SubscriptionStats, Category } from '../types';
+import type { User, Subscription, SubscriptionStats, Category, PaginatedResponse, SubscriptionFilters } from '../types';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
@@ -37,7 +37,20 @@ export const authApi = {
 };
 
 export const subscriptionsApi = {
-  getAll: () => api.get<Subscription[]>('/subscriptions'),
+  getAll: (filters?: SubscriptionFilters) => {
+    const params = new URLSearchParams();
+    if (filters?.search) params.append('search', filters.search);
+    if (filters?.status) params.append('status', filters.status);
+    if (filters?.category) params.append('category', filters.category);
+    if (filters?.billingCycle) params.append('billingCycle', filters.billingCycle);
+    if (filters?.sortBy) params.append('sortBy', filters.sortBy);
+    if (filters?.sortOrder) params.append('sortOrder', filters.sortOrder);
+    if (filters?.page) params.append('page', filters.page.toString());
+    if (filters?.limit) params.append('limit', filters.limit.toString());
+    
+    const queryString = params.toString();
+    return api.get<PaginatedResponse<Subscription>>(`/subscriptions${queryString ? `?${queryString}` : ''}`);
+  },
   getById: (id: string) => api.get<Subscription>(`/subscriptions/${id}`),
   create: (data: Partial<Subscription>) => api.post<Subscription>('/subscriptions', data),
   update: (id: string, data: Partial<Subscription>) => api.put<Subscription>(`/subscriptions/${id}`, data),

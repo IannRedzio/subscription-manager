@@ -5,10 +5,12 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SubscriptionForm from '../components/SubscriptionForm';
 import type { Subscription, SubscriptionFormData } from '../types';
+import { useTranslation } from 'react-i18next';
 
 const EditSubscription = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -22,12 +24,12 @@ const EditSubscription = () => {
       setSubscription(response.data);
       setError(null);
     } catch (err) {
-      setError('Failed to fetch subscription');
+      setError(t('messages.failedFetchSubscription'));
       console.error('Failed to fetch subscription:', err);
     } finally {
       setLoading(false);
     }
-  }, [id]);
+  }, [id, t]);
 
   useEffect(() => {
     fetchSubscription();
@@ -66,7 +68,7 @@ const EditSubscription = () => {
         <Navbar />
         <div className="max-w-3xl mx-auto px-4 py-8">
           <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded">
-            {error || 'Subscription not found'}
+            {error || t('messages.subscriptionNotFound')}
           </div>
         </div>
       </div>
@@ -79,8 +81,8 @@ const EditSubscription = () => {
 
       <main className="flex-1 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Edit Subscription</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Update subscription details</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('subscriptions.editTitle')}</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">{t('subscriptions.editSubtitle')}</p>
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">

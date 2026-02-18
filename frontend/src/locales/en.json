@@ -1,0 +1,223 @@
+{
+  "app": {
+    "name": "Subscription Manager"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "statistics": "Statistics",
+    "calendar": "Calendar",
+    "categories": "Categories",
+    "newSubscription": "New Subscription",
+    "toggleTheme": "Toggle theme"
+  },
+  "footer": {
+    "rights": "© {{year}} Subscription Manager. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "support": "Support"
+  },
+  "login": {
+    "welcome": "Welcome to {{appName}}",
+    "subtitle": "Sign in to manage your subscriptions",
+    "google": "Sign in with Google",
+    "github": "Sign in with GitHub"
+  },
+  "auth": {
+    "processingLogin": "Processing login..."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Overview of your subscriptions",
+    "stats": {
+      "monthlySpending": "Monthly Spending",
+      "activeSubscriptions": "Active Subscriptions",
+      "totalYearly": "Total Yearly",
+      "upcoming7Days": "Upcoming (7 days)"
+    },
+    "upcomingTitle": "Upcoming Billing (7 Days)",
+    "noUpcoming": "No upcoming billing in the next 7 days",
+    "allSubscriptions": "All Subscriptions"
+  },
+  "stats": {
+    "title": "Statistics",
+    "subtitle": "Detailed breakdown of your subscription spending",
+    "monthlySpending": "Monthly Spending",
+    "yearlySpending": "Yearly Spending",
+    "weeklySpending": "Weekly Spending",
+    "activeSubscriptions": "Active Subscriptions",
+    "spendingByCategory": "Spending by Category",
+    "failedToLoad": "Failed to load statistics",
+    "cancelledSubscriptions": "Cancelled Subscriptions",
+    "pausedSubscriptions": "Paused Subscriptions"
+  },
+  "calendar": {
+    "title": "Calendar",
+    "subtitle": "View upcoming billing dates",
+    "previous": "Previous",
+    "next": "Next",
+    "weekdays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  },
+  "categories": {
+    "title": "Categories",
+    "subtitle": "Browse available subscription categories",
+    "newCategory": "New Category",
+    "categoryName": "Category Name",
+    "color": "Color",
+    "iconOptional": "Icon (optional)",
+    "createCategory": "Create Category",
+    "categoryNameRequired": "Category name is required",
+    "failedToCreate": "Failed to create category",
+    "cancel": "Cancel",
+    "icon": "Icon",
+    "iconPlaceholder": "e.g., music, video, cloud",
+    "createNewCategory": "Create new category"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your account settings",
+    "profileInfo": "Profile Information",
+    "email": "Email",
+    "name": "Name",
+    "role": "Role",
+    "notSet": "Not set",
+    "appearance": "Appearance",
+    "darkMode": "Dark Mode",
+    "darkModeDesc": "Toggle dark mode on or off",
+    "language": "Language",
+    "languageDesc": "Choose your preferred language",
+    "accountActions": "Account Actions",
+    "accountActionsDesc": "Additional account settings will be available soon."
+  },
+  "language": {
+    "english": "English",
+    "spanish": "Spanish"
+  },
+  "subscriptions": {
+    "label": "Subscription",
+    "newTitle": "New Subscription",
+    "newSubtitle": "Add a new subscription to track",
+    "editTitle": "Edit Subscription",
+    "editSubtitle": "Update subscription details",
+    "detailBack": "Back to Dashboard",
+    "amount": "Amount",
+    "billingCycle": "Billing Cycle",
+    "nextBilling": "Next billing:",
+    "nextBillingDate": "Next Billing Date",
+    "category": "Category",
+    "trialPeriodLabel": "Trial Period:",
+    "trialPeriodEnds": "Ends on {{date}}",
+    "lastBilled": "Last Billed",
+    "notes": "Notes",
+    "emptyTitle": "No subscriptions yet",
+    "emptySubtitle": "Create your first subscription to get started"
+  },
+  "actions": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "create": "Create",
+    "update": "Update"
+  },
+  "form": {
+    "subscriptionName": "Subscription Name",
+    "description": "Description",
+    "descriptionPlaceholder": "Optional description",
+    "category": "Category",
+    "amount": "Amount",
+    "currency": "Currency",
+    "billingCycle": "Billing Cycle",
+    "isTrial": "This is a trial subscription",
+    "trialEndDate": "Trial End Date",
+    "nextBillingDate": "Next Billing Date",
+    "notes": "Notes",
+    "notesPlaceholder": "Optional notes",
+    "newCategoryTitle": "New Category",
+    "newCategoryPlaceholder": "e.g., Entertainment, Productivity",
+    "subscriptionPlaceholder": "e.g., Netflix, Spotify",
+    "createCategory": "Create Category",
+    "createNewCategory": "Create new category",
+    "color": "Color"
+  },
+  "validation": {
+    "nameRequired": "Name is required",
+    "categoryRequired": "Category is required",
+    "amountPositive": "Amount must be greater than 0",
+    "nextBillingRequired": "Next billing date is required",
+    "categoryNameRequired": "Category name is required"
+  },
+  "status": {
+    "ACTIVE": "Active",
+    "CANCELLED": "Cancelled",
+    "PAUSED": "Paused",
+    "TRIAL": "Trial"
+  },
+  "roles": {
+    "ADMIN": "Admin",
+    "USER": "User"
+  },
+  "billingCycle": {
+    "MONTHLY": "Monthly",
+    "YEARLY": "Yearly",
+    "WEEKLY": "Weekly"
+  },
+  "currency": {
+    "USD": "USD ($)",
+    "EUR": "EUR (€)",
+    "GBP": "GBP (£)",
+    "JPY": "JPY (¥)",
+    "ARS": "ARS ($)"
+  },
+  "charts": {
+    "monthlySpending": "Monthly Spending",
+    "amount": "Amount",
+    "spendingByCategory": "Spending by Category",
+    "subscriptionsCount": "{{count}} subscription",
+    "subscriptionsCount_other": "{{count}} subscriptions"
+  },
+  "userMenu": {
+    "settings": "Settings",
+    "logout": "Logout",
+    "user": "User"
+  },
+  "messages": {
+    "processingLogin": "Processing login...",
+    "failedFetchCategories": "Failed to fetch categories",
+    "failedFetchDashboard": "Failed to fetch dashboard data",
+    "failedDeleteSubscription": "Failed to delete subscription",
+    "failedFetchSubscription": "Failed to fetch subscription",
+    "subscriptionNotFound": "Subscription not found",
+    "confirmDeleteSubscription": "Are you sure you want to delete this subscription?"
+  },
+  "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  "search": {
+    "placeholder": "Search...",
+    "subscriptionsPlaceholder": "Search subscriptions...",
+    "clear": "Clear search"
+  },
+  "filters": {
+    "title": "Filters",
+    "clear": "Clear filters",
+    "status": "Status",
+    "category": "Category",
+    "billingCycle": "Billing Cycle",
+    "allStatus": "All Status",
+    "allCategories": "All Categories",
+    "allCycles": "All Cycles",
+    "ascending": "Ascending",
+    "descending": "Descending",
+    "sortBy": {
+      "label": "Sort by",
+      "nextBilling": "Next Billing",
+      "name": "Name",
+      "amount": "Amount",
+      "createdAt": "Created",
+      "category": "Category"
+    }
+  },
+  "pagination": {
+    "showing": "Showing",
+    "of": "of",
+    "previous": "Previous",
+    "next": "Next"
+  }
+}

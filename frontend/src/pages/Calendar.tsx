@@ -1,21 +1,25 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, isToday } from 'date-fns';
+import { enUS, es } from 'date-fns/locale';
 import { subscriptionsApi } from '../services/api';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Button from '../components/ui/Button';
 import type { Subscription } from '../types';
+import { useTranslation } from 'react-i18next';
 
 const Calendar = () => {
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language.startsWith('es') ? es : enUS;
 
   const fetchSubscriptions = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await subscriptionsApi.getAll();
-      setSubscriptions(response.data);
+      const response = await subscriptionsApi.getAll({ limit: 1000 });
+      setSubscriptions(response.data?.data || []);
     } catch (error) {
       console.error('Failed to fetch subscriptions:', error);
     } finally {
@@ -34,7 +38,7 @@ const Calendar = () => {
   }, [currentDate]);
 
   const getSubscriptionsForDay = useCallback((date: Date) => {
-    return subscriptions.filter((sub) => {
+    return (subscriptions || []).filter((sub) => {
       const billingDate = new Date(sub.nextBillingDate);
       return isSameDay(billingDate, date);
     });
@@ -66,25 +70,25 @@ const Calendar = () => {
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Calendar</h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">View upcoming billing dates</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('calendar.title')}</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">{t('calendar.subtitle')}</p>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="secondary" onClick={previousMonth}>
-              Previous
+              {t('calendar.previous')}
             </Button>
             <span className="px-4 py-2 font-semibold text-gray-900 dark:text-white">
-              {format(currentDate, 'MMMM yyyy')}
+              {format(currentDate, 'MMMM yyyy', { locale })}
             </span>
             <Button variant="secondary" onClick={nextMonth}>
-              Next
+              {t('calendar.next')}
             </Button>
           </div>
         </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
           <div className="grid grid-cols-7 gap-px bg-gray-200 dark:bg-gray-700">
-            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+            {(t('calendar.weekdays', { returnObjects: true }) as string[]).map((day) => (
               <div key={day} className="bg-gray-50 dark:bg-gray-800 p-3 text-center font-medium text-gray-700 dark:text-gray-300">
                 {day}
               </div>

@@ -9,6 +9,7 @@ import {
 } from 'recharts';
 import { useTheme } from '../contexts/ThemeContext';
 import type { SubscriptionStats } from '../types';
+import { useTranslation } from 'react-i18next';
 
 interface CategoryChartProps {
   stats: SubscriptionStats;
@@ -19,8 +20,9 @@ const COLORS = ['#3b82f6', '#ef4444', '#22c55e', '#f59e0b', '#8b5cf6', '#ec4899'
 const CategoryChart = memo(({ stats }: CategoryChartProps) => {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  const { t } = useTranslation();
 
-  const categoryData = (stats.byCategory || []).map((cat, index) => ({
+  const categoryData = (stats?.byCategory || []).map((cat, index) => ({
     name: cat.category,
     value: cat.total,
     count: cat.count,
@@ -33,7 +35,9 @@ const CategoryChart = memo(({ stats }: CategoryChartProps) => {
       return (
         <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
           <p className="font-semibold text-gray-900 dark:text-white">{data.name}</p>
-          <p className="text-sm text-gray-600 dark:text-gray-400">${data.value.toFixed(2)} ({data.count} subscriptions)</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            ${data.value.toFixed(2)} ({t('charts.subscriptionsCount', { count: data.count })})
+          </p>
         </div>
       );
     }
@@ -42,7 +46,7 @@ const CategoryChart = memo(({ stats }: CategoryChartProps) => {
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Spending by Category</h3>
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{t('charts.spendingByCategory')}</h3>
       <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie

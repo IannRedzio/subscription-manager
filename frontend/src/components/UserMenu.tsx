@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { User, LogOut, Settings, ChevronDown } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { cn } from '../utils/cn';
+import { useTranslation } from 'react-i18next';
 
 const UserMenu = memo(() => {
   const { user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -49,10 +51,10 @@ const UserMenu = memo(() => {
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-50">
           <div className="px-4 py-2 border-b border-gray-100 dark:border-gray-700">
-            <p className="text-sm font-medium text-gray-900 dark:text-white">{user.name || 'User'}</p>
+            <p className="text-sm font-medium text-gray-900 dark:text-white">{user.name || t('userMenu.user')}</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">{user.email}</p>
             <span className="inline-block mt-1 px-2 py-0.5 text-xs font-medium rounded bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-400">
-              {user.role}
+              {t(`roles.${user.role}`)}
             </span>
           </div>
 
@@ -64,7 +66,7 @@ const UserMenu = memo(() => {
             className="w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
           >
             <Settings className="w-4 h-4" />
-            Settings
+            {t('userMenu.settings')}
           </button>
 
           <button
@@ -75,7 +77,7 @@ const UserMenu = memo(() => {
             className="w-full px-4 py-2 text-left text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2"
           >
             <LogOut className="w-4 h-4" />
-            Logout
+            {t('userMenu.logout')}
           </button>
         </div>
       )}

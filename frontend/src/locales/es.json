@@ -1,0 +1,223 @@
+{
+  "app": {
+    "name": "Subscription Manager"
+  },
+  "nav": {
+    "dashboard": "Panel",
+    "statistics": "Estadisticas",
+    "calendar": "Calendario",
+    "categories": "Categorias",
+    "newSubscription": "Nueva suscripcion",
+    "toggleTheme": "Cambiar tema"
+  },
+  "footer": {
+    "rights": "© {{year}} Subscription Manager. Todos los derechos reservados.",
+    "privacy": "Politica de privacidad",
+    "terms": "Terminos del servicio",
+    "support": "Soporte"
+  },
+  "login": {
+    "welcome": "Bienvenido a {{appName}}",
+    "subtitle": "Inicia sesion para gestionar tus suscripciones",
+    "google": "Iniciar sesion con Google",
+    "github": "Iniciar sesion con GitHub"
+  },
+  "auth": {
+    "processingLogin": "Procesando inicio de sesion..."
+  },
+  "dashboard": {
+    "title": "Panel",
+    "subtitle": "Resumen de tus suscripciones",
+    "stats": {
+      "monthlySpending": "Gasto mensual",
+      "activeSubscriptions": "Suscripciones activas",
+      "totalYearly": "Total anual",
+      "upcoming7Days": "Proximas (7 dias)"
+    },
+    "upcomingTitle": "Proximos cobros (7 dias)",
+    "noUpcoming": "No hay proximos cobros en los proximos 7 dias",
+    "allSubscriptions": "Todas las suscripciones"
+  },
+  "stats": {
+    "title": "Estadisticas",
+    "subtitle": "Desglose detallado de tus gastos de suscripcion",
+    "monthlySpending": "Gasto mensual",
+    "yearlySpending": "Gasto anual",
+    "weeklySpending": "Gasto semanal",
+    "activeSubscriptions": "Suscripciones activas",
+    "spendingByCategory": "Gastos por categoria",
+    "failedToLoad": "No se pudieron cargar las estadisticas",
+    "cancelledSubscriptions": "Suscripciones canceladas",
+    "pausedSubscriptions": "Suscripciones pausadas"
+  },
+  "calendar": {
+    "title": "Calendario",
+    "subtitle": "Ver proximas fechas de cobro",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "weekdays": ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"]
+  },
+  "categories": {
+    "title": "Categorias",
+    "subtitle": "Explora las categorias disponibles",
+    "newCategory": "Nueva categoria",
+    "categoryName": "Nombre de categoria",
+    "color": "Color",
+    "iconOptional": "Icono (opcional)",
+    "createCategory": "Crear categoria",
+    "categoryNameRequired": "El nombre de la categoria es obligatorio",
+    "failedToCreate": "No se pudo crear la categoria",
+    "cancel": "Cancelar",
+    "icon": "Icono",
+    "iconPlaceholder": "p. ej., musica, video, nube",
+    "createNewCategory": "Crear nueva categoria"
+  },
+  "settings": {
+    "title": "Configuracion",
+    "subtitle": "Administra la configuracion de tu cuenta",
+    "profileInfo": "Informacion del perfil",
+    "email": "Correo",
+    "name": "Nombre",
+    "role": "Rol",
+    "notSet": "No definido",
+    "appearance": "Apariencia",
+    "darkMode": "Modo oscuro",
+    "darkModeDesc": "Activar o desactivar modo oscuro",
+    "language": "Idioma",
+    "languageDesc": "Elige tu idioma preferido",
+    "accountActions": "Acciones de cuenta",
+    "accountActionsDesc": "Mas opciones de cuenta estaran disponibles pronto."
+  },
+  "language": {
+    "english": "Ingles",
+    "spanish": "Espanol"
+  },
+  "subscriptions": {
+    "label": "Suscripcion",
+    "newTitle": "Nueva suscripcion",
+    "newSubtitle": "Agrega una nueva suscripcion para rastrear",
+    "editTitle": "Editar suscripcion",
+    "editSubtitle": "Actualiza los detalles de la suscripcion",
+    "detailBack": "Volver al panel",
+    "amount": "Monto",
+    "billingCycle": "Ciclo de facturacion",
+    "nextBilling": "Proximo cobro:",
+    "nextBillingDate": "Proxima fecha de cobro",
+    "category": "Categoria",
+    "trialPeriodLabel": "Periodo de prueba:",
+    "trialPeriodEnds": "Termina el {{date}}",
+    "lastBilled": "Ultimo cobro",
+    "notes": "Notas",
+    "emptyTitle": "Aun no hay suscripciones",
+    "emptySubtitle": "Crea tu primera suscripcion para comenzar"
+  },
+  "actions": {
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "cancel": "Cancelar",
+    "create": "Crear",
+    "update": "Actualizar"
+  },
+  "form": {
+    "subscriptionName": "Nombre de suscripcion",
+    "description": "Descripcion",
+    "descriptionPlaceholder": "Descripcion opcional",
+    "category": "Categoria",
+    "amount": "Monto",
+    "currency": "Moneda",
+    "billingCycle": "Ciclo de facturacion",
+    "isTrial": "Esta es una suscripcion de prueba",
+    "trialEndDate": "Fin de prueba",
+    "nextBillingDate": "Proxima fecha de cobro",
+    "notes": "Notas",
+    "notesPlaceholder": "Notas opcionales",
+    "newCategoryTitle": "Nueva categoria",
+    "newCategoryPlaceholder": "p. ej., Entretenimiento, Productividad",
+    "subscriptionPlaceholder": "p. ej., Netflix, Spotify",
+    "createCategory": "Crear categoria",
+    "createNewCategory": "Crear nueva categoria",
+    "color": "Color"
+  },
+  "validation": {
+    "nameRequired": "El nombre es obligatorio",
+    "categoryRequired": "La categoria es obligatoria",
+    "amountPositive": "El monto debe ser mayor que 0",
+    "nextBillingRequired": "La proxima fecha de cobro es obligatoria",
+    "categoryNameRequired": "El nombre de la categoria es obligatorio"
+  },
+  "status": {
+    "ACTIVE": "Activa",
+    "CANCELLED": "Cancelada",
+    "PAUSED": "Pausada",
+    "TRIAL": "Prueba"
+  },
+  "roles": {
+    "ADMIN": "Admin",
+    "USER": "Usuario"
+  },
+  "billingCycle": {
+    "MONTHLY": "Mensual",
+    "YEARLY": "Anual",
+    "WEEKLY": "Semanal"
+  },
+  "currency": {
+    "USD": "USD ($)",
+    "EUR": "EUR (€)",
+    "GBP": "GBP (£)",
+    "JPY": "JPY (¥)",
+    "ARS": "ARS ($)"
+  },
+  "charts": {
+    "monthlySpending": "Gasto mensual",
+    "amount": "Monto",
+    "spendingByCategory": "Gasto por categoria",
+    "subscriptionsCount": "{{count}} suscripcion",
+    "subscriptionsCount_other": "{{count}} suscripciones"
+  },
+  "userMenu": {
+    "settings": "Configuracion",
+    "logout": "Cerrar sesion",
+    "user": "Usuario"
+  },
+  "messages": {
+    "processingLogin": "Procesando inicio de sesion...",
+    "failedFetchCategories": "No se pudieron cargar las categorias",
+    "failedFetchDashboard": "No se pudieron cargar los datos del panel",
+    "failedDeleteSubscription": "No se pudo eliminar la suscripcion",
+    "failedFetchSubscription": "No se pudo obtener la suscripcion",
+    "subscriptionNotFound": "Suscripcion no encontrada",
+    "confirmDeleteSubscription": "Estas seguro de que deseas eliminar esta suscripcion?"
+  },
+  "months": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+  "search": {
+    "placeholder": "Buscar...",
+    "subscriptionsPlaceholder": "Buscar suscripciones...",
+    "clear": "Limpiar busqueda"
+  },
+  "filters": {
+    "title": "Filtros",
+    "clear": "Limpiar filtros",
+    "status": "Estado",
+    "category": "Categoria",
+    "billingCycle": "Ciclo de facturacion",
+    "allStatus": "Todos los estados",
+    "allCategories": "Todas las categorias",
+    "allCycles": "Todos los ciclos",
+    "ascending": "Ascendente",
+    "descending": "Descendente",
+    "sortBy": {
+      "label": "Ordenar por",
+      "nextBilling": "Proximo cobro",
+      "name": "Nombre",
+      "amount": "Monto",
+      "createdAt": "Creado",
+      "category": "Categoria"
+    }
+  },
+  "pagination": {
+    "showing": "Mostrando",
+    "of": "de",
+    "previous": "Anterior",
+    "next": "Siguiente"
+  }
+}

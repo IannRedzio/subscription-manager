@@ -1,16 +1,20 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { format } from 'date-fns';
+import { enUS, es } from 'date-fns/locale';
 import { Edit, Trash2, ArrowLeft, Calendar, DollarSign, Tag, Repeat } from 'lucide-react';
 import { subscriptionsApi } from '../services/api';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Button from '../components/ui/Button';
 import type { Subscription } from '../types';
+import { useTranslation } from 'react-i18next';
 
 const SubscriptionDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language.startsWith('es') ? es : enUS;
   const [subscription, setSubscription] = useState<Subscription | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -24,12 +28,12 @@ const SubscriptionDetail = () => {
       setSubscription(response.data);
       setError(null);
     } catch (err) {
-      setError('Failed to fetch subscription');
+      setError(t('messages.failedFetchSubscription'));
       console.error('Failed to fetch subscription:', err);
     } finally {
       setLoading(false);
     }
-  }, [id]);
+  }, [id, t]);
 
   useEffect(() => {
     fetchSubscription();
@@ -37,11 +41,11 @@ const SubscriptionDetail = () => {
 
   const handleEdit = useCallback(() => {
     navigate(`/subscriptions/${id}/edit`);
-  }, [id, navigate]);
+  }, [id, navigate, t]);
 
   const handleDelete = useCallback(async () => {
     if (!id) return;
-    if (!confirm('Are you sure you want to delete this subscription?')) return;
+    if (!confirm(t('messages.confirmDeleteSubscription'))) return;
 
     try {
       await subscriptionsApi.delete(id);
@@ -68,7 +72,7 @@ const SubscriptionDetail = () => {
         <Navbar />
         <div className="max-w-3xl mx-auto px-4 py-8">
           <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded">
-            {error || 'Subscription not found'}
+            {error || t('messages.subscriptionNotFound')}
           </div>
         </div>
       </div>
@@ -92,7 +96,7 @@ const SubscriptionDetail = () => {
           className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-6"
         >
           <ArrowLeft size={20} />
-          Back to Dashboard
+          {t('subscriptions.detailBack')}
         </button>
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
@@ -105,7 +109,7 @@ const SubscriptionDetail = () => {
                 )}
               </div>
               <span className={`px-3 py-1 rounded-full text-sm font-medium ${statusColors[subscription.status]}`}>
-                {subscription.status}
+                {t(`status.${subscription.status}`)}
               </span>
             </div>
           </div>
@@ -117,7 +121,7 @@ const SubscriptionDetail = () => {
                   <DollarSign className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Amount</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{t('subscriptions.amount')}</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-white">
                     {subscription.currency} {subscription.amount.toFixed(2)}
                   </p>
@@ -129,8 +133,8 @@ const SubscriptionDetail = () => {
                   <Repeat className="w-5 h-5 text-green-600 dark:text-green-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Billing Cycle</p>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{subscription.billingCycle}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{t('subscriptions.billingCycle')}</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{t(`billingCycle.${subscription.billingCycle}`)}</p>
                 </div>
               </div>
 
@@ -139,9 +143,9 @@ const SubscriptionDetail = () => {
                   <Calendar className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Next Billing Date</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{t('subscriptions.nextBillingDate')}</p>
                   <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {format(new Date(subscription.nextBillingDate), 'MMM dd, yyyy')}
+                    {format(new Date(subscription.nextBillingDate), 'MMM dd, yyyy', { locale })}
                   </p>
                 </div>
               </div>
@@ -151,7 +155,7 @@ const SubscriptionDetail = () => {
                   <Tag className="w-5 h-5 text-orange-600 dark:text-orange-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Category</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{t('subscriptions.category')}</p>
                   <p className="text-lg font-semibold text-gray-900 dark:text-white">{subscription.category}</p>
                 </div>
               </div>
@@ -160,24 +164,25 @@ const SubscriptionDetail = () => {
             {subscription.isTrial && subscription.trialEndDate && (
               <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
                 <p className="text-sm text-blue-800 dark:text-blue-400">
-                  <strong>Trial Period:</strong> Ends on{' '}
-                  {format(new Date(subscription.trialEndDate), 'MMM dd, yyyy')}
+                  <strong>{t('subscriptions.trialPeriodLabel')}</strong> {t('subscriptions.trialPeriodEnds', {
+                    date: format(new Date(subscription.trialEndDate), 'MMM dd, yyyy', { locale })
+                  })}
                 </p>
               </div>
             )}
 
             {subscription.lastBillingDate && (
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Last Billed</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('subscriptions.lastBilled')}</p>
                 <p className="text-gray-900 dark:text-white">
-                  {format(new Date(subscription.lastBillingDate), 'MMM dd, yyyy')}
+                  {format(new Date(subscription.lastBillingDate), 'MMM dd, yyyy', { locale })}
                 </p>
               </div>
             )}
 
             {subscription.notes && (
               <div>
-                <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Notes</p>
+                <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t('subscriptions.notes')}</p>
                 <p className="text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-700 p-3 rounded-lg">{subscription.notes}</p>
               </div>
             )}
@@ -185,11 +190,11 @@ const SubscriptionDetail = () => {
             <div className="flex gap-3 pt-6 border-t border-gray-200 dark:border-gray-700">
               <Button onClick={handleEdit} className="flex items-center gap-2">
                 <Edit size={18} />
-                Edit
+                {t('actions.edit')}
               </Button>
               <Button variant="danger" onClick={handleDelete} className="flex items-center gap-2">
                 <Trash2 size={18} />
-                Delete
+                {t('actions.delete')}
               </Button>
             </div>
           </div>

@@ -8,6 +8,7 @@ import Input from './ui/Input';
 import Select from './ui/Select';
 import Button from './ui/Button';
 import Modal from './ui/Modal';
+import { useTranslation } from 'react-i18next';
 
 interface SubscriptionFormProps {
   subscription?: Subscription;
@@ -17,6 +18,7 @@ interface SubscriptionFormProps {
 
 const SubscriptionForm = ({ subscription, onSubmit, onCancel }: SubscriptionFormProps) => {
   const { user } = useAuth();
+  const { t } = useTranslation();
   const isAdmin = user?.role === 'ADMIN';
   const [formData, setFormData] = useState<SubscriptionFormData>(() => {
     if (subscription) {
@@ -87,10 +89,10 @@ const SubscriptionForm = ({ subscription, onSubmit, onCancel }: SubscriptionForm
     e.preventDefault();
     const newErrors: Record<string, string> = {};
 
-    if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.category) newErrors.category = 'Category is required';
-    if (formData.amount <= 0) newErrors.amount = 'Amount must be greater than 0';
-    if (!formData.nextBillingDate) newErrors.nextBillingDate = 'Next billing date is required';
+    if (!formData.name.trim()) newErrors.name = t('validation.nameRequired');
+    if (!formData.category) newErrors.category = t('validation.categoryRequired');
+    if (formData.amount <= 0) newErrors.amount = t('validation.amountPositive');
+    if (!formData.nextBillingDate) newErrors.nextBillingDate = t('validation.nextBillingRequired');
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -110,7 +112,7 @@ const SubscriptionForm = ({ subscription, onSubmit, onCancel }: SubscriptionForm
   const handleCreateCategory = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newCategory.name.trim()) {
-      setCategoryError('Category name is required');
+      setCategoryError(t('validation.categoryNameRequired'));
       return;
     }
 
@@ -126,50 +128,50 @@ const SubscriptionForm = ({ subscription, onSubmit, onCancel }: SubscriptionForm
       setNewCategory({ name: '', color: '#3b82f6' });
       setIsCategoryModalOpen(false);
     } catch (err: any) {
-      setCategoryError(err.response?.data?.error || 'Failed to create category');
+      setCategoryError(err.response?.data?.error || t('categories.failedToCreate'));
     } finally {
       setCreatingCategory(false);
     }
   };
 
   const billingCycleOptions = [
-    { value: 'MONTHLY', label: 'Monthly' },
-    { value: 'YEARLY', label: 'Yearly' },
-    { value: 'WEEKLY', label: 'Weekly' },
+    { value: 'MONTHLY', label: t('billingCycle.MONTHLY') },
+    { value: 'YEARLY', label: t('billingCycle.YEARLY') },
+    { value: 'WEEKLY', label: t('billingCycle.WEEKLY') },
   ];
 
   const currencyOptions = [
-    { value: 'USD', label: 'USD ($)' },
-    { value: 'EUR', label: 'EUR (€)' },
-    { value: 'GBP', label: 'GBP (£)' },
-    { value: 'JPY', label: 'JPY (¥)' },
-    { value: 'ARS', label: 'ARS ($)' },
+    { value: 'USD', label: t('currency.USD') },
+    { value: 'EUR', label: t('currency.EUR') },
+    { value: 'GBP', label: t('currency.GBP') },
+    { value: 'JPY', label: t('currency.JPY') },
+    { value: 'ARS', label: t('currency.ARS') },
   ];
 
   return (
     <>
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
-          label="Subscription Name"
+          label={t('form.subscriptionName')}
           id="name"
           name="name"
           value={formData.name}
           onChange={handleChange}
           error={errors.name}
-          placeholder="e.g., Netflix, Spotify"
+          placeholder={t('form.subscriptionPlaceholder')}
           required
         />
 
         <div>
           <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Description
+            {t('form.description')}
           </label>
           <textarea
             id="description"
             name="description"
             value={formData.description}
             onChange={handleChange}
-            placeholder="Optional description"
+            placeholder={t('form.descriptionPlaceholder')}
             rows={3}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
@@ -177,7 +179,7 @@ const SubscriptionForm = ({ subscription, onSubmit, onCancel }: SubscriptionForm
 
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Category
+            {t('form.category')}
           </label>
           <div className="flex gap-2">
             <div className="flex-1">
@@ -196,7 +198,7 @@ const SubscriptionForm = ({ subscription, onSubmit, onCancel }: SubscriptionForm
                 type="button"
                 onClick={() => setIsCategoryModalOpen(true)}
                 className="px-3 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors"
-                title="Create new category"
+                title={t('form.createNewCategory')}
               >
                 <Plus size={20} />
               </button>
@@ -206,7 +208,7 @@ const SubscriptionForm = ({ subscription, onSubmit, onCancel }: SubscriptionForm
 
         <div className="grid grid-cols-2 gap-4">
           <Input
-            label="Amount"
+            label={t('form.amount')}
             id="amount"
             name="amount"
             type="number"
@@ -218,7 +220,7 @@ const SubscriptionForm = ({ subscription, onSubmit, onCancel }: SubscriptionForm
           />
 
           <Select
-            label="Currency"
+            label={t('form.currency')}
             id="currency"
             name="currency"
             value={formData.currency}
@@ -228,7 +230,7 @@ const SubscriptionForm = ({ subscription, onSubmit, onCancel }: SubscriptionForm
         </div>
 
         <Select
-          label="Billing Cycle"
+          label={t('form.billingCycle')}
           id="billingCycle"
           name="billingCycle"
           value={formData.billingCycle}
@@ -246,13 +248,13 @@ const SubscriptionForm = ({ subscription, onSubmit, onCancel }: SubscriptionForm
             className="w-4 h-4 text-blue-600 border-gray-300 dark:border-gray-600 rounded focus:ring-blue-500 dark:bg-gray-800"
           />
           <label htmlFor="isTrial" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-            This is a trial subscription
+            {t('form.isTrial')}
           </label>
         </div>
 
         {formData.isTrial && (
           <Input
-            label="Trial End Date"
+            label={t('form.trialEndDate')}
             id="trialEndDate"
             name="trialEndDate"
             type="date"
@@ -262,7 +264,7 @@ const SubscriptionForm = ({ subscription, onSubmit, onCancel }: SubscriptionForm
         )}
 
         <Input
-          label="Next Billing Date"
+          label={t('form.nextBillingDate')}
           id="nextBillingDate"
           name="nextBillingDate"
           type="date"
@@ -274,14 +276,14 @@ const SubscriptionForm = ({ subscription, onSubmit, onCancel }: SubscriptionForm
 
         <div>
           <label htmlFor="notes" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Notes
+            {t('form.notes')}
           </label>
           <textarea
             id="notes"
             name="notes"
             value={formData.notes}
             onChange={handleChange}
-            placeholder="Optional notes"
+            placeholder={t('form.notesPlaceholder')}
             rows={2}
             className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
@@ -289,10 +291,10 @@ const SubscriptionForm = ({ subscription, onSubmit, onCancel }: SubscriptionForm
 
         <div className="flex justify-end gap-3 pt-4">
           <Button type="button" variant="secondary" onClick={onCancel} disabled={loading}>
-            Cancel
+            {t('actions.cancel')}
           </Button>
           <Button type="submit" loading={loading}>
-            {subscription ? 'Update' : 'Create'} Subscription
+            {subscription ? t('actions.update') : t('actions.create')} {t('subscriptions.label')}
           </Button>
         </div>
       </form>
@@ -304,23 +306,23 @@ const SubscriptionForm = ({ subscription, onSubmit, onCancel }: SubscriptionForm
           setCategoryError('');
           setNewCategory({ name: '', color: '#3b82f6' });
         }}
-        title="New Category"
+        title={t('form.newCategoryTitle')}
         size="sm"
       >
         <form onSubmit={handleCreateCategory} className="space-y-4">
           <Input
-            label="Category Name"
+            label={t('categories.categoryName')}
             id="newCategoryName"
             name="newCategoryName"
             value={newCategory.name}
             onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
-            placeholder="e.g., Entertainment, Productivity"
+            placeholder={t('form.newCategoryPlaceholder')}
             required
           />
 
           <div>
             <label htmlFor="categoryColor" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Color
+              {t('form.color')}
             </label>
             <div className="flex items-center gap-3">
               <input
@@ -347,10 +349,10 @@ const SubscriptionForm = ({ subscription, onSubmit, onCancel }: SubscriptionForm
                 setCategoryError('');
               }}
             >
-              Cancel
+                {t('actions.cancel')}
             </Button>
             <Button type="submit" loading={creatingCategory}>
-              Create
+              {t('actions.create')}
             </Button>
           </div>
         </form>

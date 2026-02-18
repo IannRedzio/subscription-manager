@@ -69,3 +69,26 @@ export interface SubscriptionFormData {
   nextBillingDate: string;
   notes?: string;
 }
+
+export interface PaginationMeta {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+}
+
+export interface PaginatedResponse<T> {
+  data: T[];
+  pagination: PaginationMeta;
+}
+
+export interface SubscriptionFilters {
+  search?: string;
+  status?: string;
+  category?: string;
+  billingCycle?: string;
+  sortBy?: string;
+  sortOrder?: 'asc' | 'desc';
+  page?: number;
+  limit?: number;
+}

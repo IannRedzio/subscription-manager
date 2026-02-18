@@ -1,9 +1,11 @@
 import { memo } from 'react';
 import { format } from 'date-fns';
+import { enUS, es } from 'date-fns/locale';
 import { Calendar, Edit, Trash2, AlertCircle } from 'lucide-react';
 import { cn } from '../utils/cn';
 import type { Subscription } from '../types';
 import Button from './ui/Button';
+import { useTranslation } from 'react-i18next';
 
 interface SubscriptionCardProps {
   subscription: Subscription;
@@ -21,6 +23,10 @@ const statusColors = {
 
 const SubscriptionCard = ({ subscription, onEdit, onDelete, onView }: SubscriptionCardProps) => {
   const isOverdue = new Date(subscription.nextBillingDate) < new Date();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language.startsWith('es') ? es : enUS;
+  const statusLabel = t(`status.${subscription.status}`);
+  const billingCycleLabel = t(`billingCycle.${subscription.billingCycle}`);
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow p-6">
@@ -37,26 +43,26 @@ const SubscriptionCard = ({ subscription, onEdit, onDelete, onView }: Subscripti
             statusColors[subscription.status]
           )}
         >
-          {subscription.status}
+          {statusLabel}
         </span>
       </div>
 
       <div className="space-y-2 mb-4">
         <div className="flex items-center justify-between text-sm">
-          <span className="text-gray-600 dark:text-gray-400">Amount</span>
+          <span className="text-gray-600 dark:text-gray-400">{t('subscriptions.amount')}</span>
           <span className="font-semibold text-gray-900 dark:text-white">
             {subscription.currency} {subscription.amount.toFixed(2)}
           </span>
         </div>
         <div className="flex items-center justify-between text-sm">
-          <span className="text-gray-600 dark:text-gray-400">Billing Cycle</span>
-          <span className="font-medium text-gray-900 dark:text-white">{subscription.billingCycle}</span>
+          <span className="text-gray-600 dark:text-gray-400">{t('subscriptions.billingCycle')}</span>
+          <span className="font-medium text-gray-900 dark:text-white">{billingCycleLabel}</span>
         </div>
         <div className="flex items-center gap-2 text-sm">
           <Calendar size={16} className="text-gray-500 dark:text-gray-400" />
-          <span className="text-gray-600 dark:text-gray-400">Next billing:</span>
+          <span className="text-gray-600 dark:text-gray-400">{t('subscriptions.nextBilling')}</span>
           <span className={cn('font-medium', isOverdue ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-white')}>
-            {format(new Date(subscription.nextBillingDate), 'MMM dd, yyyy')}
+            {format(new Date(subscription.nextBillingDate), 'MMM dd, yyyy', { locale })}
           </span>
           {isOverdue && <AlertCircle size={16} className="text-red-600 dark:text-red-400" />}
         </div>
@@ -70,7 +76,7 @@ const SubscriptionCard = ({ subscription, onEdit, onDelete, onView }: Subscripti
           className="flex items-center gap-1"
         >
           <Edit size={16} />
-          Edit
+          {t('actions.edit')}
         </Button>
         <Button
           variant="danger"
@@ -79,7 +85,7 @@ const SubscriptionCard = ({ subscription, onEdit, onDelete, onView }: Subscripti
           className="flex items-center gap-1"
         >
           <Trash2 size={16} />
-          Delete
+          {t('actions.delete')}
         </Button>
       </div>
     </div>

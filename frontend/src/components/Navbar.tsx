@@ -11,16 +11,18 @@ import {
 } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 import UserMenu from './UserMenu';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = memo(() => {
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
+  const { t } = useTranslation();
 
   const navItems = [
-    { path: '/', icon: Home, label: 'Dashboard' },
-    { path: '/stats', icon: BarChart3, label: 'Statistics' },
-    { path: '/calendar', icon: CalendarIcon, label: 'Calendar' },
-    { path: '/categories', icon: Tag, label: 'Categories' },
+    { path: '/', icon: Home, label: t('nav.dashboard') },
+    { path: '/stats', icon: BarChart3, label: t('nav.statistics') },
+    { path: '/calendar', icon: CalendarIcon, label: t('nav.calendar') },
+    { path: '/categories', icon: Tag, label: t('nav.categories') },
   ];
 
   return (
@@ -33,7 +35,7 @@ const Navbar = memo(() => {
                 <span className="text-white font-bold text-sm">SM</span>
               </div>
               <span className="font-bold text-xl text-gray-900 dark:text-white whitespace-nowrap">
-                Subscription Manager
+                {t('app.name')}
               </span>
             </Link>
 
@@ -65,13 +67,13 @@ const Navbar = memo(() => {
               className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap"
             >
               <Plus size={18} />
-              <span className="hidden sm:inline">New Subscription</span>
+              <span className="hidden sm:inline">{t('nav.newSubscription')}</span>
             </Link>
             <UserMenu />
             <button
               onClick={toggleTheme}
               className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 transition-colors hover:cursor-pointer"
-              aria-label="Toggle theme"
+              aria-label={t('nav.toggleTheme')}
             >
               {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
             </button>

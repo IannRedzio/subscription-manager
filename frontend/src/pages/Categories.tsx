@@ -8,9 +8,11 @@ import Modal from '../components/ui/Modal';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 import type { Category } from '../types';
+import { useTranslation } from 'react-i18next';
 
 const Categories = () => {
   const { user } = useAuth();
+  const { t } = useTranslation();
   const isAdmin = user?.role === 'ADMIN';
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
@@ -38,7 +40,7 @@ const Categories = () => {
   const handleCreateCategory = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newCategory.name.trim()) {
-      setError('Category name is required');
+      setError(t('validation.categoryNameRequired'));
       return;
     }
 
@@ -54,7 +56,7 @@ const Categories = () => {
       setIsModalOpen(false);
       fetchCategories();
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to create category');
+      setError(err.response?.data?.error || t('categories.failedToCreate'));
     } finally {
       setCreating(false);
     }
@@ -78,13 +80,13 @@ const Categories = () => {
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Categories</h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-1">Browse available subscription categories</p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('categories.title')}</h1>
+            <p className="text-gray-600 dark:text-gray-400 mt-1">{t('categories.subtitle')}</p>
           </div>
           {isAdmin && (
             <Button onClick={() => setIsModalOpen(true)}>
               <Plus size={20} className="mr-2" />
-              New Category
+              {t('categories.newCategory')}
             </Button>
           )}
         </div>
@@ -109,7 +111,7 @@ const Categories = () => {
                 )}
                 {category.icon && (
                   <p className="mt-3 text-sm text-gray-600 dark:text-gray-400">
-                    <span className="font-medium">Icon:</span> {category.icon}
+                    <span className="font-medium">{t('categories.icon')}:</span> {category.icon}
                   </p>
                 )}
               </div>
@@ -127,23 +129,23 @@ const Categories = () => {
           setError('');
           setNewCategory({ name: '', color: '#3b82f6', icon: '' });
         }}
-        title="New Category"
+        title={t('categories.newCategory')}
         size="sm"
       >
         <form onSubmit={handleCreateCategory} className="space-y-4">
           <Input
-            label="Category Name"
+            label={t('categories.categoryName')}
             id="categoryName"
             name="categoryName"
             value={newCategory.name}
             onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
-            placeholder="e.g., Entertainment, Productivity"
+            placeholder={t('form.newCategoryPlaceholder')}
             required
           />
 
           <div>
             <label htmlFor="color" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Color
+              {t('categories.color')}
             </label>
             <div className="flex items-center gap-3">
               <input
@@ -158,12 +160,12 @@ const Categories = () => {
           </div>
 
           <Input
-            label="Icon (optional)"
+            label={t('categories.iconOptional')}
             id="icon"
             name="icon"
             value={newCategory.icon}
             onChange={(e) => setNewCategory({ ...newCategory, icon: e.target.value })}
-            placeholder="e.g., music, video, cloud"
+            placeholder={t('categories.iconPlaceholder')}
           />
 
           {error && (
@@ -179,10 +181,10 @@ const Categories = () => {
                 setError('');
               }}
             >
-              Cancel
+              {t('actions.cancel')}
             </Button>
             <Button type="submit" loading={creating}>
-              Create Category
+              {t('categories.createCategory')}
             </Button>
           </div>
         </form>
