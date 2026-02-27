@@ -61,6 +61,7 @@ model OAuthAccount {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
   @@map("oauth_accounts")
 }
 
@@ -84,6 +85,10 @@ model Subscription {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([status])
+  @@index([nextBillingDate])
+  @@index([userId, status])
+  @@index([userId, nextBillingDate])
   @@map("subscriptions")
 }
 
